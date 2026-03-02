@@ -12,7 +12,7 @@ namespace Utils
         public static IEnumerator fetchWorldByID(string uuid, string authToken, bool? withObjects, Action<APIEnvironment2D> callback)
         {
             UnityWebRequest wwwFetch;
-            wwwFetch = withObjects == true ? UnityWebRequest.Get($"https://localhost:7222/environments/{uuid}/2dobjects") : UnityWebRequest.Get($"https://localhost:7222/environments/{uuid}");
+            wwwFetch = withObjects == true ? UnityWebRequest.Get($"{GameManager.BaseURL}/environments/{uuid}/2dobjects") : UnityWebRequest.Get($"https://localhost:7222/environments/{uuid}");
             wwwFetch.SetRequestHeader("Authorization", authToken);
             
             //Need to have this because of ssl/tsl certificate problems when running from terminal instead of rider/vs
@@ -39,7 +39,7 @@ namespace Utils
 
         public static IEnumerator deleteWorldByID(string uuid, string authToken, Action callback)
         {
-            UnityWebRequest delete = UnityWebRequest.Delete($"https://localhost:7222/environments/{uuid}");
+            UnityWebRequest delete = UnityWebRequest.Delete($"{GameManager.BaseURL}/environments/{uuid}");
             delete.SetRequestHeader("Authorization", authToken);
             //Need to have this because of ssl certificate problems
             delete.certificateHandler = new BypassCertificate();
@@ -63,7 +63,7 @@ namespace Utils
             apiUpdateData.environmentId = uuid;
             apiUpdateData.environment2D = uploadData;
             string Data = JsonUtility.ToJson(apiUpdateData);
-            UnityWebRequest wwwUpdate = UnityWebRequest.Put($"https://localhost:7222/environments", Data);
+            UnityWebRequest wwwUpdate = UnityWebRequest.Put($"{GameManager.BaseURL}/environments", Data);
             Debug.Log(Data);
             wwwUpdate.SetRequestHeader("Authorization", authToken);
             //Need to have this because of ssl certificate problems

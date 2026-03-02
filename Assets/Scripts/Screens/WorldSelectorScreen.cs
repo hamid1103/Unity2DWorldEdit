@@ -22,7 +22,7 @@ namespace DefaultNamespace.Screens
         public IEnumerator GetWorlds()
         {
             loadingScreen.SetActive(true);
-            UnityWebRequest getWorlds = UnityWebRequest.Get("https://localhost:7222/environments");
+            UnityWebRequest getWorlds = UnityWebRequest.Get($"{GameManager.BaseURL}/environments");
             getWorlds.SetRequestHeader("Authorization", gameManager.GetSecurityToken());
             getWorlds.certificateHandler = new BypassCertificate();
 

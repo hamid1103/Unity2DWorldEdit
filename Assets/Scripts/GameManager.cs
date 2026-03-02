@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject WorldSelector;
     public GameObject LoadingScreen;
     public GameObject GameUI;
+    public static string BaseURL = "https://localhost:7222";
 
     public string worldName;
     public string worldUUID;
@@ -54,7 +55,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("IEnumerator Create World At Server called");
         EnvUpload envUpload = new();
         envUpload.name = worldName;
-        UnityWebRequest wwwCreateWorld = UnityWebRequest.Post("https://localhost:7222/environments", JsonUtility.ToJson(envUpload), "application/json");
+        UnityWebRequest wwwCreateWorld = UnityWebRequest.Post($"{BaseURL}/environments", JsonUtility.ToJson(envUpload), "application/json");
         wwwCreateWorld.SetRequestHeader("Authorization", securityToken);
         
         wwwCreateWorld.certificateHandler = new BypassCertificate();

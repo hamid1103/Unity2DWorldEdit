@@ -33,7 +33,7 @@ public class LoginScreen : MonoBehaviour
         ld.password = passwordField.text;
         string jsonData = JsonUtility.ToJson(ld);
         
-        UnityWebRequest wwwReg = UnityWebRequest.Post("https://localhost:7222/account/register", jsonData,"application/json");
+        UnityWebRequest wwwReg = UnityWebRequest.Post($"{GameManager.BaseURL}/account/register", jsonData,"application/json");
         wwwReg.certificateHandler = new BypassCertificate();
         yield return wwwReg.SendWebRequest();
 
@@ -61,7 +61,7 @@ public class LoginScreen : MonoBehaviour
         Debug.Log(ld.email);
         Debug.Log(ld.password);
         Debug.Log(jsonData);
-        UnityWebRequest www = UnityWebRequest.Post("https://localhost:7222/account/login", jsonData,"application/json");
+        UnityWebRequest www = UnityWebRequest.Post($"{GameManager.BaseURL}/account/login", jsonData,"application/json");
         www.certificateHandler = new BypassCertificate();
         
         yield return www.SendWebRequest();
