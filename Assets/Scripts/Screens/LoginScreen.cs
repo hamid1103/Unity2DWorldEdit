@@ -15,25 +15,14 @@ public class LoginScreen : MonoBehaviour
     public TMP_Text messageText;
     public WorldSelectorScreen worldSelectorScreen;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void HideMessage()
     {
-        if (messageText.enabled)
-        {
-            messageText.enabled = false;
-        }
+        messageText.gameObject.SetActive(false);
     }
 
-    private void Update()
+    public void ShowMessage()
     {
-        if (string.IsNullOrEmpty(messageText.text))
-        {
-            
-        }
-        else
-        {
-            
-        }
+        messageText.gameObject.SetActive(true);
     }
 
     IEnumerator Register()
@@ -56,8 +45,7 @@ public class LoginScreen : MonoBehaviour
         else
         {
             //Display Errors
-            Debug.Log(wwwReg.error);
-            Debug.Log(jsonData);
+            ShowMessage();
             messageText.text = wwwReg.error;
         }
     }
@@ -80,7 +68,16 @@ public class LoginScreen : MonoBehaviour
         
         if (www.result != UnityWebRequest.Result.Success)
         {
+            ShowMessage();
+            if (www.responseCode == 401)
+            {
+                //Idk why it gives a 401 error if there is no matching account. I can't edit that.
+                messageText.text = "Password and Email combination not found.";
+            }
+            else
+            {
             messageText.text = www.error;
+            }
         }
         else
         {
