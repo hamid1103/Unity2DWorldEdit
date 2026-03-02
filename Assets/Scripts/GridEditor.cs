@@ -151,4 +151,14 @@ public class GridEditor : MonoBehaviour
             tilemaps[0].SetTile(vec, tileDict[tid]);
         }
     }
+
+    public void Reset()
+    {
+        //Reset drawable grid
+        tilemaps[0].ClearAllTiles();
+        tileLayers = new Dictionary<TileLayer, Dictionary<Vector3Int, Tile>>();
+        tileLayers.Add(TileLayer.Default, new Dictionary<Vector3Int, Tile>());
+        tilemap = new Dictionary<Vector3Int, int>();
+
+    }
 }

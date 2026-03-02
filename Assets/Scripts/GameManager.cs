@@ -1,13 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
 using DefaultNamespace.Screens;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 using Utils;
 
 public class GameManager : MonoBehaviour
@@ -19,6 +16,7 @@ public class GameManager : MonoBehaviour
     public CameraMovement camera;
     public GameObject WorldSelector;
     public GameObject LoadingScreen;
+    public GameObject GameUI;
 
     public string worldName;
     public string worldUUID;
@@ -249,11 +247,15 @@ public class GameManager : MonoBehaviour
         RenderTexture.active = oldRt;
         return tex;
     }
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void ReturnWorldScreen()
     {
+        StopGame();
+        //Reset grideditor
+        gridEditor.Reset();
         
+        WorldSelector.SetActive(true);
+        StartCoroutine(WorldSelector.GetComponent<WorldSelectorScreen>().GetWorlds());
     }
 
     public void SetSecurityToken(string token)
@@ -279,8 +281,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StopGame()
+    {
+        GameUI.SetActive(false);
+        Started = false;
+        camera.locked = true;
+        camera.ToCenter();
+        tileSelector.SetActive(false);
+        gridEditor.Started = false;
+    }
+    
     public void StartGame()
     {
+        GameUI.SetActive(true);
         Started = true;
         camera.locked = false;
         gridEditor.Started = true;

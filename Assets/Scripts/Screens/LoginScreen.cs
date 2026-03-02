@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DefaultNamespace;
 using DefaultNamespace.Screens;
@@ -23,6 +24,44 @@ public class LoginScreen : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (string.IsNullOrEmpty(messageText.text))
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }
+
+    IEnumerator Register()
+    {
+        //Make register request
+        LoginData ld = new LoginData();
+        ld.email = usernameField.text;
+        ld.password = passwordField.text;
+        string jsonData = JsonUtility.ToJson(ld);
+        
+        UnityWebRequest wwwReg = UnityWebRequest.Post("https://localhost:7222/account/register", jsonData,"application/json");
+        wwwReg.certificateHandler = new BypassCertificate();
+        yield return wwwReg.SendWebRequest();
+
+        if (wwwReg.result == UnityWebRequest.Result.Success)
+        {
+            //if successful 
+            yield return StartCoroutine(Login());
+        }
+        else
+        {
+            //Display Errors
+            Debug.Log(wwwReg.error);
+            Debug.Log(jsonData);
+            messageText.text = wwwReg.error;
+        }
+    }
+    
     IEnumerator Login()
     {
         LoginData ld = new LoginData();
@@ -41,7 +80,7 @@ public class LoginScreen : MonoBehaviour
         
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError(www.error);
+            messageText.text = www.error;
         }
         else
         {
@@ -53,6 +92,11 @@ public class LoginScreen : MonoBehaviour
             this.gameObject.SetActive(false);
             worldSelectorScreen.gameObject.SetActive(true);
         }
+    }
+
+    public void AttemptRegister()
+    {
+        StartCoroutine(Register());
     }
     
     public void AttemptLogin()

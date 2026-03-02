@@ -42,6 +42,11 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    public void ToCenter()
+    { 
+        transform.position = new Vector3(0, 0, transform.position.z);
+    }
+
     private void FixedUpdate()
     {
         if (!locked)
