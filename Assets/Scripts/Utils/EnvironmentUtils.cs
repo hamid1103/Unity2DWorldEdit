@@ -12,7 +12,7 @@ namespace Utils
         public static IEnumerator fetchWorldByID(string uuid, string authToken, bool? withObjects, Action<APIEnvironment2D> callback)
         {
             UnityWebRequest wwwFetch;
-            wwwFetch = withObjects == true ? UnityWebRequest.Get($"{GameManager.BaseURL}/environments/{uuid}/2dobjects") : UnityWebRequest.Get($"https://localhost:7222/environments/{uuid}");
+            wwwFetch = withObjects == true ? UnityWebRequest.Get($"{GameManager.BaseURL}/environments/{uuid}/2dobjects") : UnityWebRequest.Get($"{GameManager.BaseURL}/environments/{uuid}");
             wwwFetch.SetRequestHeader("Authorization", authToken);
             
             //Need to have this because of ssl/tsl certificate problems when running from terminal instead of rider/vs

@@ -17,7 +17,9 @@ public class GameManager : MonoBehaviour
     public GameObject WorldSelector;
     public GameObject LoadingScreen;
     public GameObject GameUI;
-    public static string BaseURL = "https://localhost:7222";
+    //https://localhost:7222
+    //https://avansict2242417.azurewebsites.net.
+    public static string BaseURL = "https://avansict2242417.azurewebsites.net";
 
     public string worldName;
     public string worldUUID;
@@ -141,7 +143,7 @@ public class GameManager : MonoBehaviour
             "image/png"             // MIME type
         );
 
-        UnityWebRequest wwwIMGUpload = UnityWebRequest.Post("https://localhost:7222/preview", form);
+        UnityWebRequest wwwIMGUpload = UnityWebRequest.Post($"{BaseURL}/preview", form);
         wwwIMGUpload.certificateHandler = new BypassCertificate();
         wwwIMGUpload.SetRequestHeader("Authorization", securityToken);
         
@@ -213,7 +215,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator BulkUploadObjects(BulkObjectUpload upload)
     { 
-        UnityWebRequest wwwObjectPost = UnityWebRequest.Post("https://localhost:7222/object2d/bulk", JsonUtility.ToJson(upload),"application/json");
+        UnityWebRequest wwwObjectPost = UnityWebRequest.Post($"{BaseURL}/object2d/bulk", JsonUtility.ToJson(upload),"application/json");
         wwwObjectPost.certificateHandler = new BypassCertificate();
         wwwObjectPost.SetRequestHeader("Authorization", securityToken);
         yield return wwwObjectPost.SendWebRequest();
