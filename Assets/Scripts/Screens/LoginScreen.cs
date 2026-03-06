@@ -44,9 +44,22 @@ public class LoginScreen : MonoBehaviour
         }
         else
         {
+            RegisterErrorResponse regErs = JsonUtility.FromJson<RegisterErrorResponse>(wwwReg.downloadHandler.text);
+            if (regErs.errors.DuplicateEmail != null)
+            {
+                messageText.text = "Email is already taken";
+            }
+            else if (regErs.errors.PasswordRequiresUpper != null)
+            {
+                messageText.text = "Password requires one uppercase letter, one lowercase letter, one digit and one non-alpha numeral";
+            }
+            else
+            {
+                messageText.text = wwwReg.error;
+            }
+            
             //Display Errors
             ShowMessage();
-            messageText.text = wwwReg.error;
         }
     }
     

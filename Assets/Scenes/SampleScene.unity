@@ -4023,7 +4023,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1104648479}
         m_TargetAssemblyTypeName: LoginScreen, Assembly-CSharp
-        m_MethodName: AttemptLogin
+        m_MethodName: AttemptRegister
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6031,7 +6031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734464422
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7644,7 +7644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1104648478
 RectTransform:
   m_ObjectHideFlags: 0
